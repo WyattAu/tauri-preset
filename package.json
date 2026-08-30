@@ -1,0 +1,25 @@
+{
+  "name": "tauri-preset",
+  "version": "0.1.0",
+  "description": "Shared Tauri v2 configuration presets for window, bundle, and security settings",
+  "main": "tauri-preset.json",
+  "files": [
+    "tauri-preset.json",
+    "README.md",
+    "LICENSE-MIT",
+    "LICENSE-APACHE"
+  ],
+  "keywords": [
+    "tauri",
+    "tauri-v2",
+    "desktop",
+    "configuration",
+    "preset"
+  ],
+  "author": "WyattAu",
+  "license": "MIT OR Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/WyattAu/tauri-preset"
+  }
+}

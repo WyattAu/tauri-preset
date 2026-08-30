@@ -1,0 +1,19 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  validate:
+    name: Validate JSON
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate package.json
+        run: python3 -m json.tool package.json
+
+      - name: Validate tauri-preset.json
+        run: python3 -m json.tool tauri-preset.json
