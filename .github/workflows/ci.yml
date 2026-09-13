@@ -17,3 +17,45 @@ jobs:
 
       - name: Validate tauri-preset.json
         run: python3 -m json.tool tauri-preset.json
+
+  born-green:
+    name: Scaffold Tauri v2 app from preset (born-green)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Tauri v2 system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libwebkit2gtk-4.1-dev libgtk-3-dev libayatana-appindicator3-dev librsvg2-dev
+
+      - uses: dtolnay/rust-toolchain@stable
+
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: tauri-scaffold/src-tauri
+
+      - name: Install tauri CLI
+        run: cargo install tauri-cli --locked
+
+      - name: Scaffold app
+        run: |
+          mkdir tauri-scaffold
+          cd tauri-scaffold
+          cargo tauri init --ci --app-name born-green --window-title "Born Green" \
+            --frontend-dist ../dist --dev-url http://localhost:5173 \
+            --before-dev-command "npm run dev" --before-build-command "npm run build"
+
+      - name: Apply preset as tauri.conf.json
+        run: |
+          # Preset needs an identifier (required in v2, app-specific)
+          node -e "
+            const fs = require('fs');
+            const preset = JSON.parse(fs.readFileSync('tauri-preset.json', 'utf8'));
+            preset.identifier = 'com.wyattau.borngreen';
+            fs.writeFileSync('tauri-scaffold/src-tauri/tauri.conf.json', JSON.stringify(preset, null, 2));
+          "
+
+      - name: Compile scaffold against preset config
+        working-directory: tauri-scaffold/src-tauri
+        run: cargo check

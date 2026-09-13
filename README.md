@@ -25,19 +25,23 @@ Point your `tauri.conf.json` at the preset and override only what you need:
 ```json
 {
   "$schema": "./node_modules/tauri-preset/tauri-preset.json",
-  "package": {
-    "productName": "My App",
-    "version": "1.0.0"
-  },
-  "windows": [
-    {
-      "title": "My App",
-      "width": 900,
-      "height": 600
-    }
-  ]
+  "productName": "My App",
+  "version": "1.0.0",
+  "identifier": "com.example.my-app",
+  "app": {
+    "windows": [
+      {
+        "title": "My App",
+        "width": 900,
+        "height": 600
+      }
+    ]
+  }
 }
 ```
+
+> **Note (Tauri v2):** `productName` and `version` are top-level fields and
+> `identifier` is required. The v1-style `package` object is not valid.
 
 ### Option 2 — Merge in build tooling
 
@@ -47,7 +51,7 @@ If your build tool supports JSON merge (e.g. `deepmerge` in JS):
 import preset from "tauri-preset/tauri-preset.json";
 
 const config = deepmerge(preset, {
-  package: { productName: "My App" },
+  productName: "My App",
 });
 ```
 

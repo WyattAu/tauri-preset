@@ -1,11 +1,25 @@
 {
-  "$schema": "https://raw.githubusercontent.com/tauri-apps/tauri/dev/crates/tauri-utils/schema.json",
+  "$schema": "https://schema.tauri.app/config/2",
   "version": "0.1.0",
+  "productName": "Tauri App",
+  "identifier": "com.example.tauri-app",
   "app": {
     "withGlobalTauri": true,
     "security": {
       "csp": "default-src 'self'; img-src 'self' asset: https://asset.localhost; style-src 'self' 'unsafe-inline'"
-    }
+    },
+    "windows": [
+      {
+        "title": "Tauri App",
+        "width": 1200,
+        "height": 800,
+        "resizable": true,
+        "fullscreen": false,
+        "decorations": true,
+        "transparent": false,
+        "center": true
+      }
+    ]
   },
   "build": {
     "beforeDevCommand": "npm run dev",
@@ -30,25 +44,9 @@
       }
     }
   },
-  "package": {
-    "productName": "Tauri App",
-    "version": "0.1.0"
-  },
   "plugins": {
     "shell": {
       "open": true
     }
-  },
-  "windows": [
-    {
-      "title": "Tauri App",
-      "width": 1200,
-      "height": 800,
-      "resizable": true,
-      "fullscreen": false,
-      "decorations": true,
-      "transparent": false,
-      "center": true
-    }
-  ]
+  }
 }
